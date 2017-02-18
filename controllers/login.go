@@ -12,44 +12,31 @@ type LoginController struct {
 	beego.Controller
 }
 
-type LoginResult struct {
-	Code     int
-	Account  string
-	UserName string
-	Message  string
-}
-
-type LoginUser struct {
-	Account  string `json:"account" form:"account"`
-	Password string `json:"password" form:"password"`
-}
-
 var userQuery = &models.UserQuery{}
 
 func (c *LoginController) Login() {
 	account := c.GetString("account")
 	password := c.GetString("password")
-	if c.Ctx.Input.Header("Content-Type") == "application/json" {
-		var user models.User
-		models.ParseJson(string(c.Ctx.Input.RequestBody), &user)
-		account = user.Account
-		password = user.Password
-	}
-	var result LoginResult
-	if user, err := userQuery.GetUserByAccount(account); err == nil {
+	var result = make(map[string]interface{})
+	if account == "" && password == "" {
+		result["code"] = 4
+		result["message"] = "account or password empty"
+	} else if user, err := userQuery.GetUserByAccount(account); err == nil {
 		if user.Password == "" {
-			result.Code = 1
-			result.Message = "no account:" + account
+			result["code"] = 1
+			result["message"] = "no account:" + account
 		} else if user.CheckPassword(password, true) {
-			result.Account = account
-			result.UserName = user.UserName
-			result.Message = "login success"
+			result["code"] = 0
+			result["message"] = "login success"
+			result["user"] = user
 			beego.Info(fmt.Sprintf("%s login success", account))
 		} else {
-			result.Code = 2
-			result.Message = "wrong password"
+			result["code"] = 2
+			result["message"] = "wrong password"
 		}
 	} else {
+		result["code"] = 3
+		result["message"] = "error"
 		beego.Error(err)
 	}
 	c.Data["json"] = result
