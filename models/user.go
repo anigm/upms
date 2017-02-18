@@ -42,7 +42,7 @@ func (u *UserQuery) GetUserByAccount(account string) (*User, error) {
 		return nil, err
 	} else {
 		defer db.Close()
-		db.Select("account,password").Where("account = ?", account).First(user)
+		db.Select("account,username,password").Where("account = ?", account).First(user)
 		return user, nil
 	}
 }

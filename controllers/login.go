@@ -17,6 +17,11 @@ var userQuery = &models.UserQuery{}
 func (c *LoginController) Login() {
 	account := c.GetString("account")
 	password := c.GetString("password")
+	c.Data["json"] = loginNormal(account, password)
+	c.ServeJSON()
+}
+
+func loginNormal(account, password string) map[string]interface{} {
 	var result = make(map[string]interface{})
 	if account == "" && password == "" {
 		result["code"] = 4
@@ -39,6 +44,5 @@ func (c *LoginController) Login() {
 		result["message"] = "error"
 		beego.Error(err)
 	}
-	c.Data["json"] = result
-	c.ServeJSON()
+	return result
 }
