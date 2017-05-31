@@ -1,0 +1,15 @@
+body{
+    margin-top: 70px;
+}
+.checkboxth {
+    width: 30px
+}
+
+.create-user-form {
+    width:370px;
+    margin-bottom:20px
+}
+
+.create-user-text {
+    max-width: 370px;
+}
