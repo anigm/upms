@@ -100,27 +100,27 @@ func testdb() {
 }
 
 func InitTestData() {
-	role10 := Role{Platform: "公交", Name: "管理员"}
-	role11 := Role{Platform: "公交", Name: "作业员"}
-	role12 := Role{Platform: "公交", Name: "质检员"}
+	role10 := Role{Platform: "平台1", Name: "管理员"}
+	role11 := Role{Platform: "平台1", Name: "角色1"}
+	role12 := Role{Platform: "平台1", Name: "角色2"}
 	SaveRole(&role10)
 	SaveRole(&role11)
 	SaveRole(&role12)
-	role20 := Role{Platform: "用户", Name: "管理员"}
+	role20 := Role{Platform: "平台2", Name: "管理员"}
 	SaveRole(&role20)
-	role30 := Role{Platform: "室内图", Name: "管理员"}
-	role31 := Role{Platform: "室内图", Name: "作业员"}
-	role32 := Role{Platform: "室内图", Name: "质检员"}
+	role30 := Role{Platform: "平台3", Name: "管理员"}
+	role31 := Role{Platform: "平台3", Name: "角色1"}
+	role32 := Role{Platform: "平台3", Name: "角色2"}
 	SaveRole(&role30)
 	SaveRole(&role31)
 	SaveRole(&role32)
 
 	rg0 := RoleGroup{Name: "分组1", ParentID: 0, RoleGroups: []RoleGroup{
-		RoleGroup{Name: "ASDF"}, RoleGroup{Name: "分组12"}, RoleGroup{Name: "分组13"},
+		RoleGroup{Name: "2级分组"}, RoleGroup{Name: "分组12"}, RoleGroup{Name: "分组13"},
 	},
 	}
 	rg1 := RoleGroup{Name: "分组2", ParentID: 0, RoleGroups: []RoleGroup{
-		RoleGroup{Name: "公交平台", Roles: []Role{role10, role11, role12}}, RoleGroup{Name: "分组22"}, RoleGroup{Name: "分组23"},
+		RoleGroup{Name: "2级分组", Roles: []Role{role10, role11, role12}}, RoleGroup{Name: "分组22"}, RoleGroup{Name: "分组23"},
 	}}
 	rg2 := RoleGroup{Name: "分组3", ParentID: 0}
 	rg3 := RoleGroup{Name: "分组4", ParentID: 0}
@@ -143,11 +143,11 @@ func InitTestData() {
 	SaveUser(&user04)
 	SaveUser(&user05)
 
-	p11 := Permission{Platform: "公交", Name: "线路查看", Path: "/Line/View"}
-	p12 := Permission{Platform: "公交", Name: "线路编辑", Path: "/Line/Edit"}
-	p13 := Permission{Platform: "公交", Name: "站点修改", Path: "/Stop/Modify"}
-	p21 := Permission{Platform: "公交", Name: "站点删除", Path: "/Stop/Update"}
-	p22 := Permission{Platform: "公交", Name: "新增站点", Path: "/Stop/Create"}
+	p11 := Permission{Platform: "平台1", Name: "线路查看", Path: "/Line/View"}
+	p12 := Permission{Platform: "平台1", Name: "线路编辑", Path: "/Line/Edit"}
+	p13 := Permission{Platform: "平台1", Name: "站点修改", Path: "/Stop/Modify"}
+	p21 := Permission{Platform: "平台1", Name: "站点删除", Path: "/Stop/Update"}
+	p22 := Permission{Platform: "平台1", Name: "新增站点", Path: "/Stop/Create"}
 	SavePermission(&p11)
 	SavePermission(&p12)
 	SavePermission(&p13)
