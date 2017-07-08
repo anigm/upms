@@ -1,0 +1,27 @@
+{
+  "entry": "src/index.js",
+  "disableCSSModules": true,
+  "env": {
+    "development": {
+      "extraBabelPlugins": [
+        "dva-hmr",
+        "transform-runtime",
+        ["import", { "libraryName": "antd", "style": true }]
+      ]
+    },
+    "production": {
+      "extraBabelPlugins": [
+        "transform-runtime",
+        ["import", { "libraryName": "antd", "style": true }]
+      ]
+    }
+  },
+  "theme": "./theme.js",
+  "proxy": {
+    "/public/index.php": {
+      "target": "http://localhost:8083/public/index.php",
+      "changeOrigin": true,
+      "pathRewrite": { "^/api" : "" }
+    }
+  }
+}

@@ -8,6 +8,18 @@ type RoleController struct {
 	beego.Controller
 }
 
+func (c *RoleController) URLMapping() {
+	c.Mapping("CreateGroup", c.CreateGroup)
+	c.Mapping("DeleteGroup", c.DeleteGroup)
+	c.Mapping("CreateRole", c.CreateRole)
+	c.Mapping("ModifyRole", c.ModifyRole)
+	c.Mapping("DeleteRole", c.DeleteRole)
+	c.Mapping("AddRole", c.AddRole)
+	c.Mapping("RemoveRole", c.RemoveRole)
+	c.Mapping("AddPermission", c.AddPermission)
+	c.Mapping("RemovePermission", c.RemovePermission)
+}
+
 // * 添加分组
 // @router /role/group/create [put]
 func (c *RoleController) CreateGroup() {

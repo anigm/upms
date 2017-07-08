@@ -14,7 +14,6 @@ func init() {
 		beego.NSRouter("/user/qq/:qq", &controllers.UserController{}, "GET:GetUserInfoByQQ"),
 		beego.NSRouter("/user/create", &controllers.UserController{}, "Post:CreateUser"),
 		beego.NSRouter("/user/delete", &controllers.UserController{}, "Post:DeleteUser"),
-		beego.NSRouter("/platforms", &controllers.PlatformController{}, "GET:Platforms"),
 		beego.NSInclude(&controllers.RoleController{}),
 		beego.NSInclude(&controllers.PermissionController{}),
 	)

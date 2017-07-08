@@ -23,8 +23,8 @@ func init() {
 	beego.GlobalControllerRouter["upms/controllers:PermissionController"] = append(beego.GlobalControllerRouter["upms/controllers:PermissionController"],
 		beego.ControllerComments{
 			Method: "CreatePermission",
-			Router: `/permission/delete`,
-			AllowHTTPMethods: []string{"post"},
+			Router: `/permission/create`,
+			AllowHTTPMethods: []string{"put"},
 			Params: nil})
 
 	beego.GlobalControllerRouter["upms/controllers:PermissionController"] = append(beego.GlobalControllerRouter["upms/controllers:PermissionController"],
@@ -45,7 +45,7 @@ func init() {
 		beego.ControllerComments{
 			Method: "AddPermission",
 			Router: `/permission/group/add`,
-			AllowHTTPMethods: []string{"delete"},
+			AllowHTTPMethods: []string{"post"},
 			Params: nil})
 
 	beego.GlobalControllerRouter["upms/controllers:PermissionController"] = append(beego.GlobalControllerRouter["upms/controllers:PermissionController"],
@@ -86,8 +86,8 @@ func init() {
 	beego.GlobalControllerRouter["upms/controllers:RoleController"] = append(beego.GlobalControllerRouter["upms/controllers:RoleController"],
 		beego.ControllerComments{
 			Method: "CreateRole",
-			Router: `/role/delete`,
-			AllowHTTPMethods: []string{"post"},
+			Router: `/role/create`,
+			AllowHTTPMethods: []string{"put"},
 			Params: nil})
 
 	beego.GlobalControllerRouter["upms/controllers:RoleController"] = append(beego.GlobalControllerRouter["upms/controllers:RoleController"],
@@ -108,7 +108,7 @@ func init() {
 		beego.ControllerComments{
 			Method: "AddRole",
 			Router: `/role/group/add`,
-			AllowHTTPMethods: []string{"delete"},
+			AllowHTTPMethods: []string{"post"},
 			Params: nil})
 
 	beego.GlobalControllerRouter["upms/controllers:RoleController"] = append(beego.GlobalControllerRouter["upms/controllers:RoleController"],

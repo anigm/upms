@@ -8,6 +8,18 @@ type PermissionController struct {
 	beego.Controller
 }
 
+func (c *PermissionController) URLMapping() {
+	c.Mapping("CreateGroup", c.CreateGroup)
+	c.Mapping("DeleteGroup", c.DeleteGroup)
+	c.Mapping("CreatePermission", c.CreatePermission)
+	c.Mapping("ModifyPermission", c.ModifyPermission)
+	c.Mapping("DeletePermission", c.DeletePermission)
+	c.Mapping("AddPermission", c.AddPermission)
+	c.Mapping("RemovePermission", c.RemovePermission)
+	c.Mapping("AddRole", c.AddRole)
+	c.Mapping("RemoveRole", c.RemoveRole)
+}
+
 // * 添加分组
 // @router /permission/group/create [put]
 func (c *PermissionController) CreateGroup() {
@@ -53,11 +65,11 @@ func (c *PermissionController) RemovePermission() {
 // * 关联权限
 // @router /permission/role/add [post]
 func (c *PermissionController) AddRole() {
-	c.Ctx.WriteString("@router /permission/permission/add [post]")
+	c.Ctx.WriteString("@router /permission/role/add [post]")
 }
 
 // * 取消权限关联
 // @router /permission/role/remove [post]
 func (c *PermissionController) RemoveRole() {
-	c.Ctx.WriteString("@router /permission/permission/remove [post]")
+	c.Ctx.WriteString("@router /permission/role/remove [post]")
 }

@@ -20,12 +20,14 @@ type LoginResult struct {
 	Success bool
 }
 
-// * 注册
-// * 登陆
-// * 删除
-// * 查询
-// * 修改信息
-// * 修改密码
+// 注册 /register [post]
+// 登陆 /login [post]
+// 删除 /user/delete [delete]
+// 查询 /user [get]
+// 修改信息 /user/modify [post]
+// 修改密码 /user/passwd [post]
+// 关联角色 /user/role/add [post]
+// 取消角色关联 /user/role/remove [post]
 
 func (c *UserController) Login() {
 	account := c.GetString("account")
