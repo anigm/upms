@@ -9,6 +9,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/zheng-ji/goSnowFlake"
 )
 
 // type JSONTime time.Time
@@ -69,7 +70,16 @@ func DB() (*gorm.DB, error) {
 	}
 }
 
+var Worker *goSnowFlake.IdWorker
+
 func init() {
+
+	beego.Info("Initializing IdWorker...")
+	var err error
+	Worker, err = goSnowFlake.NewIdWorker(1)
+	if err != nil {
+		fmt.Println(err)
+	}
 	beego.Info("Initializing Database...")
 	connstr = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		beego.AppConfig.String("mysqluser"),
@@ -100,9 +110,14 @@ func testdb() {
 }
 
 func InitTestData() {
-	role10 := Role{Platform: "平台1", Name: "管理员"}
-	role11 := Role{Platform: "平台1", Name: "角色1"}
-	role12 := Role{Platform: "平台1", Name: "角色2"}
+	ids := GetMany(100)
+
+	role10 := Role{Model: Model{ID: ids[3]}, Platform: "平台1", Name: "管理员"}
+
+	role11 := Role{Model: Model{ID: ids[2]}, Platform: "平台1", Name: "角色1"}
+
+	role12 := Role{Model: Model{ID: ids[1]}, Platform: "平台1", Name: "角色2"}
+
 	SaveRole(&role10)
 	SaveRole(&role11)
 	SaveRole(&role12)
@@ -132,11 +147,11 @@ func InitTestData() {
 	SaveRoleGroup(&rg3)
 	SaveRoleGroup(&rg4)
 
-	user01 := User{Account: "admin", Password: "e10adc3949ba59abbe56e057f20f883e", Name: "管理员", QQ: "2342342342"}
-	user02 := User{Account: "admin1", Password: "e10adc3949ba59abbe56e057f20f883e", Name: "张津杰", QQ: "982372873"}
-	user03 := User{Account: "admin2", Password: "e10adc3949ba59abbe56e057f20f883e", Name: "于中玮", QQ: "610750125"}
-	user04 := User{Account: "admin3", Password: "e10adc3949ba59abbe56e057f20f883e", Name: "赵毅", QQ: "982639692"}
-	user05 := User{Account: "admin4", Password: "e10adc3949ba59abbe56e057f20f883e", Name: "程业俊", QQ: "2987329723"}
+	user01 := User{Model: Model{ID: ids[10]}, Account: "admin", Password: "e10adc3949ba59abbe56e057f20f883e", Name: "管理员", QQ: "2342342342"}
+	user02 := User{Model: Model{ID: ids[11]}, Account: "admin1", Password: "e10adc3949ba59abbe56e057f20f883e", Name: "张津杰", QQ: "982372873"}
+	user03 := User{Model: Model{ID: ids[13]}, Account: "admin2", Password: "e10adc3949ba59abbe56e057f20f883e", Name: "于中玮", QQ: "610750125"}
+	user04 := User{Model: Model{ID: ids[12]}, Account: "admin3", Password: "e10adc3949ba59abbe56e057f20f883e", Name: "赵毅", QQ: "982639692"}
+	user05 := User{Model: Model{ID: ids[20]}, Account: "admin4", Password: "e10adc3949ba59abbe56e057f20f883e", Name: "程业俊", QQ: "2987329723"}
 	SaveUser(&user01)
 	SaveUser(&user02)
 	SaveUser(&user03)

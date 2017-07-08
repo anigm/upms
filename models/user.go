@@ -29,7 +29,7 @@ func SaveUser(user *User) error {
 		return err
 	} else {
 		defer db.Close()
-		if err := db.Save(user).Error; err != nil {
+		if err := db.Create(user).Error; err != nil {
 			return err
 		}
 	}
