@@ -1,3 +1,2 @@
 *.exe*
-./node_modules
-upms
+./node_modules 
