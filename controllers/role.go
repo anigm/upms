@@ -21,9 +21,9 @@ func (c *RoleController) DeleteGroup() {
 }
 
 // * 添加角色
-// @router /role/delete [post]
+// @router /role/create [put]
 func (c *RoleController) CreateRole() {
-	c.Ctx.WriteString("@router /role/delete [post]")
+	c.Ctx.WriteString("@router /role/create [put]")
 }
 
 // * 修改角色
@@ -39,9 +39,9 @@ func (c *RoleController) DeleteRole() {
 }
 
 // * 组内添加角色
-// @router /role/group/add [delete]
+// @router /role/group/add [post]
 func (c *RoleController) AddRole() {
-	c.Ctx.WriteString("@router /role/group/add [delete]")
+	c.Ctx.WriteString("@router /role/group/add [post]")
 }
 
 // * 组内删除角色

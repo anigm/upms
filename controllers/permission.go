@@ -21,9 +21,9 @@ func (c *PermissionController) DeleteGroup() {
 }
 
 // * 添加角色
-// @router /permission/delete [post]
+// @router /permission/create [put]
 func (c *PermissionController) CreatePermission() {
-	c.Ctx.WriteString("@router /permission/delete [post]")
+	c.Ctx.WriteString("@router /permission/create [put]")
 }
 
 // * 修改角色
@@ -39,9 +39,9 @@ func (c *PermissionController) DeletePermission() {
 }
 
 // * 组内添加角色
-// @router /permission/group/add [delete]
+// @router /permission/group/add [post]
 func (c *PermissionController) AddPermission() {
-	c.Ctx.WriteString("@router /permission/group/add [delete]")
+	c.Ctx.WriteString("@router /permission/group/add [post]")
 }
 
 // * 组内删除角色
