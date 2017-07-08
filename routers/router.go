@@ -15,8 +15,8 @@ func init() {
 		beego.NSRouter("/user/create", &controllers.UserController{}, "Post:CreateUser"),
 		beego.NSRouter("/user/delete", &controllers.UserController{}, "Post:DeleteUser"),
 		beego.NSRouter("/platforms", &controllers.PlatformController{}, "GET:Platforms"),
-		beego.NSRouter("/roles", &controllers.RoleController{}, "Post:Roles"),
-		beego.NSRouter("/rolegroups", &controllers.RoleController{}, "Get:RoleGroups"),
+		beego.NSInclude(&controllers.RoleController{}),
+		beego.NSInclude(&controllers.PermissionController{}),
 	)
 	beego.AddNamespace(ns)
 }

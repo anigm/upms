@@ -1,9 +1,6 @@
 package controllers
 
 import (
-	"strings"
-	"upms/models"
-
 	"github.com/astaxie/beego"
 )
 
@@ -11,58 +8,56 @@ type RoleController struct {
 	beego.Controller
 }
 
-type RolesData struct {
-	ID       string
-	Role     string
-	Platform string
+// * 添加分组
+// @router /role/group/create [put]
+func (c *RoleController) CreateGroup() {
+	c.Ctx.WriteString("@router /role/group/create [put]")
 }
 
-func (c *RoleController) Roles() {
-	psstr := string(c.Ctx.Input.RequestBody)
-	var platforms []string
-	var datas []RolesData
-	platforms = strings.Split(psstr, ",")
-	if db, err := models.DB(); err == nil {
-		if rows, err := db.Raw("SELECT id,name,platform FROM roles where platform in ('" + strings.Join(platforms, "','") + "')").Rows(); err == nil {
-			defer rows.Close()
-			for rows.Next() {
-				var id string
-				var platform string
-				var role string
-				rows.Scan(&id, &role, &platform)
-				datas = append(datas, RolesData{ID: id, Role: role, Platform: platform})
-			}
-		} else {
-			c.Data["json"] = &JsonResult{Status: ResultStatus_Error, Info: err.Error()}
-			c.ServeJSON()
-		}
-	} else {
-		c.Data["json"] = &JsonResult{Status: ResultStatus_Error, Info: err.Error()}
-		c.ServeJSON()
-	}
-	c.Data["json"] = &JsonResult{Status: ResultStatus_Success, Info: "success", Data: datas}
-	c.ServeJSON()
+// * 删除分组
+// @router /role/group/delete [delete]
+func (c *RoleController) DeleteGroup() {
+	c.Ctx.WriteString("@router /role/group/delete [delete]")
 }
 
-func (c *RoleController) RoleGroups() {
-	var roleGroups []models.RoleGroup
-	if db, err := models.DB(); err == nil {
-		if rows, err := db.Raw("SELECT id,name,parent_id FROM role_groups order by id").Rows(); err == nil {
-			defer rows.Close()
-			for rows.Next() {
-				var r models.RoleGroup
-				rows.Scan(&r.ID, &r.Name, &r.ParentID)
-				db.Model(r).Select("id,name,platform").Association("Roles").Find(&r.Roles)
-				roleGroups = append(roleGroups, r)
-			}
-		} else {
-			c.Data["json"] = &JsonResult{Status: ResultStatus_Error, Info: err.Error()}
-			c.ServeJSON()
-		}
-	} else {
-		c.Data["json"] = &JsonResult{Status: ResultStatus_Error, Info: err.Error()}
-		c.ServeJSON()
-	}
-	c.Data["json"] = &JsonResult{Status: ResultStatus_Success, Info: "success", Data: roleGroups}
-	c.ServeJSON()
+// * 添加角色
+// @router /role/delete [post]
+func (c *RoleController) CreateRole() {
+	c.Ctx.WriteString("@router /role/delete [post]")
+}
+
+// * 修改角色
+// @router /role/modify [post]
+func (c *RoleController) ModifyRole() {
+	c.Ctx.WriteString("@router /role/modify [post]")
+}
+
+// * 删除角色
+// @router /role/delete [delete]
+func (c *RoleController) DeleteRole() {
+	c.Ctx.WriteString("@router /role/delete [delete]")
+}
+
+// * 组内添加角色
+// @router /role/group/add [delete]
+func (c *RoleController) AddRole() {
+	c.Ctx.WriteString("@router /role/group/add [delete]")
+}
+
+// * 组内删除角色
+// @router /role/group/remove [post]
+func (c *RoleController) RemoveRole() {
+	c.Ctx.WriteString("@router /role/group/remove [post]")
+}
+
+// * 关联权限
+// @router /role/permission/add [post]
+func (c *RoleController) AddPermission() {
+	c.Ctx.WriteString("@router /role/permission/add [post]")
+}
+
+// * 取消权限关联
+// @router /role/permission/remove [post]
+func (c *RoleController) RemovePermission() {
+	c.Ctx.WriteString("@router /role/permission/remove [post]")
 }
