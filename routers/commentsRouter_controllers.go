@@ -132,4 +132,67 @@ func init() {
 			AllowHTTPMethods: []string{"post"},
 			Params: nil})
 
+	beego.GlobalControllerRouter["upms/controllers:UserController"] = append(beego.GlobalControllerRouter["upms/controllers:UserController"],
+		beego.ControllerComments{
+			Method: "Register",
+			Router: `/register`,
+			AllowHTTPMethods: []string{"post"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["upms/controllers:UserController"] = append(beego.GlobalControllerRouter["upms/controllers:UserController"],
+		beego.ControllerComments{
+			Method: "Login",
+			Router: `/login`,
+			AllowHTTPMethods: []string{"post"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["upms/controllers:UserController"] = append(beego.GlobalControllerRouter["upms/controllers:UserController"],
+		beego.ControllerComments{
+			Method: "DeleteUser",
+			Router: `/user/delete`,
+			AllowHTTPMethods: []string{"delete"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["upms/controllers:UserController"] = append(beego.GlobalControllerRouter["upms/controllers:UserController"],
+		beego.ControllerComments{
+			Method: "User",
+			Router: `/user`,
+			AllowHTTPMethods: []string{"get"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["upms/controllers:UserController"] = append(beego.GlobalControllerRouter["upms/controllers:UserController"],
+		beego.ControllerComments{
+			Method: "User",
+			Router: `/user/:id`,
+			AllowHTTPMethods: []string{"get"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["upms/controllers:UserController"] = append(beego.GlobalControllerRouter["upms/controllers:UserController"],
+		beego.ControllerComments{
+			Method: "ModifyUser",
+			Router: `/user/modify`,
+			AllowHTTPMethods: []string{"post"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["upms/controllers:UserController"] = append(beego.GlobalControllerRouter["upms/controllers:UserController"],
+		beego.ControllerComments{
+			Method: "Passwd",
+			Router: `/user/passwd`,
+			AllowHTTPMethods: []string{"post"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["upms/controllers:UserController"] = append(beego.GlobalControllerRouter["upms/controllers:UserController"],
+		beego.ControllerComments{
+			Method: "AddRole",
+			Router: `/user/role/add`,
+			AllowHTTPMethods: []string{"post"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["upms/controllers:UserController"] = append(beego.GlobalControllerRouter["upms/controllers:UserController"],
+		beego.ControllerComments{
+			Method: "RemoveRole",
+			Router: `/user/role/remove`,
+			AllowHTTPMethods: []string{"post"},
+			Params: nil})
+
 }

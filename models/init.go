@@ -12,14 +12,6 @@ import (
 	"github.com/zheng-ji/goSnowFlake"
 )
 
-// type JSONTime time.Time
-
-// func (t time.Time) MarshalJSON() ([]byte, error) {
-// 	//do your serializing here
-// 	stamp := fmt.Sprintf("\"%s\"", time.Time(t).Format("2016-01-02 15:04:05"))
-// 	return []byte(stamp), nil
-// }
-
 type Model struct {
 	ID          int64      `gorm:"primary_key"`
 	CreatedAt   *time.Time `gorm:"type:datetime"  json:",omitempty"`
@@ -40,7 +32,7 @@ func JsonToObj(jsonStr string) map[string]string {
 
 func DBModelToJson(v interface{}) string {
 	if bytes, err := json.Marshal(v); err == nil {
-		r := regexp.MustCompile(`(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+08:00)`)
+		r := regexp.MustCompile(`(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\[+-]?\d{2}:\d{2})`)
 		jsonstr := r.ReplaceAllStringFunc(string(bytes), func(s string) string {
 			if t, err := time.Parse(time.RFC3339Nano, s); err != nil {
 				panic(err)
@@ -64,7 +56,7 @@ func DB() (*gorm.DB, error) {
 			return nil, err
 		}
 		if beego.AppConfig.String("runmode") == "dev" {
-			db.LogMode(true)
+			//db.LogMode(true)
 		}
 		return db, nil
 	}
@@ -102,7 +94,7 @@ func init() {
 		)
 		beego.Info("Database Initializing Success！")
 	}
-	InitTestData()
+	//InitTestData()
 }
 
 func testdb() {

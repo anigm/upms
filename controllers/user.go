@@ -13,6 +13,57 @@ type UserController struct {
 	beego.Controller
 }
 
+func (c *UserController) URLMapping() {
+	c.Mapping("Register", c.Register)
+	c.Mapping("Login", c.Login)
+	c.Mapping("DeleteUser", c.DeleteUser)
+}
+
+// * 注册
+// @router /register [post]
+func (c *UserController) Register() {
+}
+
+// 登陆
+// @router /login [post]
+func (c *UserController) Login() {
+}
+
+// 删除
+// @router /user/delete [delete]
+func (c *UserController) DeleteUser() {
+}
+
+// 查询
+// @router /user [get]
+// @router /user/:id [get]
+func (c *UserController) User() {
+	beego.Debug(c.GetInt(":id"))
+	users, _ := models.GetUsers()
+	c.Ctx.Output.Header("Content-type", "application/json;charset=utf-8")
+	c.Ctx.WriteString(models.DBModelToJson(users))
+}
+
+// 修改信息
+// @router /user/modify [post]
+func (c *UserController) ModifyUser() {
+}
+
+// 修改密码
+// @router /user/passwd [post]
+func (c *UserController) Passwd() {
+}
+
+// 关联角色
+// @router /user/role/add [post]
+func (c *UserController) AddRole() {
+}
+
+// 取消角色关联
+// @router /user/role/remove [post]
+func (c *UserController) RemoveRole() {
+}
+
 type LoginResult struct {
 	Code    int
 	Name    string
@@ -20,16 +71,7 @@ type LoginResult struct {
 	Success bool
 }
 
-// 注册 /register [post]
-// 登陆 /login [post]
-// 删除 /user/delete [delete]
-// 查询 /user [get]
-// 修改信息 /user/modify [post]
-// 修改密码 /user/passwd [post]
-// 关联角色 /user/role/add [post]
-// 取消角色关联 /user/role/remove [post]
-
-func (c *UserController) Login() {
+func (c *UserController) Login2() {
 	account := c.GetString("account")
 	password := c.GetString("password")
 	beego.Debug(account, password)
@@ -100,7 +142,7 @@ func (c *UserController) CreateUser() {
 	}
 }
 
-func (c *UserController) DeleteUser() {
+func (c *UserController) DeleteUser2() {
 	ids := strings.Split(string(c.Ctx.Input.RequestBody), ",")
 	beego.Debug(ids)
 	if err := models.DeleteUsers(ids); err == nil {

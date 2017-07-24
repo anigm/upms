@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"upms/models"
+
 	"github.com/astaxie/beego"
 )
 
@@ -20,10 +22,24 @@ func (c *RoleController) URLMapping() {
 	c.Mapping("RemovePermission", c.RemovePermission)
 }
 
+type CreateGroupForm struct {
+	Name string
+}
+
 // * 添加分组
 // @router /role/group/create [put]
 func (c *RoleController) CreateGroup() {
-	c.Ctx.WriteString("@router /role/group/create [put]")
+	name := c.GetString("name")
+	rg := new(models.RoleGroup)
+	rg.Name = name
+	rg.ID = models.GetOne()
+	err := models.SaveRoleGroup(rg)
+	if err != nil {
+		beego.Error(err)
+		c.Ctx.WriteString("Error")
+	} else {
+		c.Ctx.WriteString("success")
+	}
 }
 
 // * 删除分组

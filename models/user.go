@@ -5,12 +5,12 @@ import "strings"
 
 type User struct {
 	Model
-	Account    string `gorm:"not null;unique"`
-	Password   string `gorm:"not null"`
-	Name       string `gorm:"not null;unique"`
-	Tag        string
-	QQ         string
-	EMail      string
+	Account    string      `gorm:"not null;unique" json:",omitempty"`
+	Password   string      `gorm:"not null" json:",omitempty"`
+	Name       string      `gorm:"not null;unique" json:",omitempty"`
+	Tag        string      `json:",omitempty"`
+	QQ         string      `json:",omitempty"`
+	EMail      string      `json:",omitempty"`
 	Roles      []Role      `gorm:"many2many:user_roles;" json:",omitempty"`
 	UserGroups []UserGroup `gorm:"many2many:group_users;" json:",omitempty"`
 }
@@ -117,7 +117,7 @@ func GetUsers() ([]User, error) {
 		return nil, err
 	} else {
 		defer db.Close()
-		db.Select("id,name,qq").Find(&users)
+		db.Select("id,name").Find(&users)
 		for i, user := range users {
 			db.Model(&user).Select("id,name,platform").Association("Roles").Find(&users[i].Roles)
 			for j, per := range users[i].Roles {
