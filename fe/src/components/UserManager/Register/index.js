@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 
-import { Form, Input, Tooltip, Icon, Button } from 'antd';
+import { Form, Input, Tooltip, Icon, Button, message } from 'antd';
 
 import { register } from '../../../services/example';
 
@@ -23,7 +23,13 @@ class RegistrationForm extends React.Component {
             data += `${name}=${values[name]}&`;
           }
         }
-        register(data);
+        register(data).then((d) => {
+          if (d.status !== 0) {
+            message.error(`创建失败：${d.info}`);
+          } else {
+            message.info('创建成功');
+          }
+        });
       }
     });
   }
@@ -47,17 +53,6 @@ class RegistrationForm extends React.Component {
     }
     callback();
   }
-
-  handleWebsiteChange = (value) => {
-    let autoCompleteResult;
-    if (!value) {
-      autoCompleteResult = [];
-    } else {
-      autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
-    }
-    this.setState({ autoCompleteResult });
-  }
-
   render() {
     const { getFieldDecorator } = this.props.form;
 
@@ -147,7 +142,7 @@ class RegistrationForm extends React.Component {
           )}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">提交</Button>
+          <Button type="primary" htmlType="submit">创建</Button>
         </FormItem>
       </Form>
     );

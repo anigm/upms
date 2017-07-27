@@ -130,14 +130,14 @@ func GetUsers() ([]User, error) {
 		return nil, err
 	} else {
 		defer db.Close()
-		db.Select("id,name").Find(&users)
-		for i, user := range users {
-			db.Model(&user).Select("id,name,platform").Association("Roles").Find(&users[i].Roles)
-			for j, per := range users[i].Roles {
-				db.Model(per).Select("id,name,path").Association("Permissions").Find(&users[i].Roles[j].Permissions)
-			}
-			db.Model(&user).Select("id,name").Association("UserGroups").Find(&users[i].UserGroups)
-		}
+		db.Select("id,account,name").Find(&users)
+		// for i, user := range users {
+		// 	db.Model(&user).Select("id,name,platform").Association("Roles").Find(&users[i].Roles)
+		// 	for j, per := range users[i].Roles {
+		// 		db.Model(per).Select("id,name,path").Association("Permissions").Find(&users[i].Roles[j].Permissions)
+		// 	}
+		// 	db.Model(&user).Select("id,name").Association("UserGroups").Find(&users[i].UserGroups)
+		// }
 		return users, nil
 	}
 }

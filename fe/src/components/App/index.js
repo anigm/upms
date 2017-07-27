@@ -16,6 +16,12 @@ class App extends React.Component {
       collapsed: !this.state.collapsed,
     });
   }
+  goback=() => {
+    this.context.router.goBack();
+  }
+  goforward=() => {
+    this.context.router.goForward();
+  }
   render() {
     return (
       <Layout className="app-layout">
@@ -53,6 +59,18 @@ class App extends React.Component {
               type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
               onClick={this.toggle}
             />
+            <div style={{ float: 'right' }}>
+              <Icon
+                className="trigger"
+                type="arrow-left"
+                onClick={this.goback}
+              />
+              <Icon
+                className="trigger"
+                type="arrow-right"
+                onClick={this.goforward}
+              />
+            </div>
           </Header>
           <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
             {this.props.children}
@@ -62,5 +80,9 @@ class App extends React.Component {
     );
   }
 }
+
+App.contextTypes = {
+  router: React.PropTypes.object.isRequired,
+};
 
 export default connect()(App);
