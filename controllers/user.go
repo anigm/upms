@@ -22,11 +22,64 @@ func (c *UserController) URLMapping() {
 // * 注册
 // @router /register [post]
 func (c *UserController) Register() {
+	result := new(JsonResult)
+	beego.Debug(string(c.Ctx.Input.RequestBody))
+	beego.Debug(c.GetInt32("Name"))
+	u := models.User{}
+	if err := c.ParseForm(&u); err != nil {
+		beego.Error(err)
+	} else {
+		beego.Debug(u)
+		u.Account = strings.TrimSpace(u.Account)
+		u.Name = strings.TrimSpace(u.Name)
+		u.Password = strings.TrimSpace(u.Password)
+		if flag, isV := u.Validate(); !isV {
+			result.Status = -3
+			switch flag {
+			case 1:
+				result.Info = "账户、昵称、密码不能为空"
+			case 2:
+				result.Info = "账户、昵称、密码不能含有空格"
+			}
+			c.Data["json"] = result
+			c.ServeJSON()
+			return
+		}
+
+		u.ID = models.GetOne()
+		if err = models.SaveUser(&u); err != nil {
+			if strings.Contains(err.Error(), "Duplicate entry") {
+				if strings.Contains(err.Error(), "account") {
+					result.Status = -1
+					result.Info = "账户已经存在！"
+				}
+				if strings.Contains(err.Error(), "name") {
+					result.Status = -2
+					result.Info = "用户昵称已经存在！"
+				}
+			} else {
+				result.Info = "账户注册错误！"
+			}
+		} else {
+			result.Info = "账户注册成功！"
+		}
+	}
+	c.Data["json"] = result
+	c.ServeJSON()
 }
 
 // 登陆
 // @router /login [post]
 func (c *UserController) Login() {
+	result := new(JsonResult)
+	u := models.User{}
+	if err := c.ParseForm(&u); err != nil {
+		beego.Error(err)
+	} else {
+
+	}
+	c.Data["json"] = result
+	c.ServeJSON()
 }
 
 // 删除

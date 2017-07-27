@@ -7,7 +7,7 @@ type User struct {
 	Model
 	Account    string      `gorm:"not null;unique" json:",omitempty"`
 	Password   string      `gorm:"not null" json:",omitempty"`
-	Name       string      `gorm:"not null;unique" json:",omitempty"`
+	Name       string      `gorm:"not null;unique" json:",omitempty" form:"Name"`
 	Tag        string      `json:",omitempty"`
 	QQ         string      `json:",omitempty"`
 	EMail      string      `json:",omitempty"`
@@ -21,6 +21,19 @@ type UserGroup struct {
 	ParentID   int64       `gorm:"unique_index:idx_name_parent"`
 	UserGroups []UserGroup `gorm:"ForeignKey:ParentID;AssociationForeignKey:ID" json:",omitempty"`
 	Users      []User      `gorm:"many2many:group_users;" json:",omitempty"`
+}
+
+func (u *User) Validate() (int, bool) {
+	u.Account = strings.TrimSpace(u.Account)
+	u.Name = strings.TrimSpace(u.Name)
+	u.Password = strings.TrimSpace(u.Password)
+	if u.Account == "" || u.Name == "" || u.Password == "" {
+		return 1, false
+	}
+	if strings.Contains(u.Account, " ") || strings.Contains(u.Name, " ") || strings.Contains(u.Password, " ") {
+		return 2, false
+	}
+	return 0, true
 }
 
 func SaveUser(user *User) error {

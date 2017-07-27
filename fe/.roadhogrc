@@ -15,5 +15,12 @@
         ["import", { "libraryName": "antd", "style": true }]
       ]
     }
+  },
+   "proxy": {
+    "/api": {
+      "target": "http://localhost:8280/v1/",
+      "changeOrigin": true,
+      "pathRewrite": { "^/api" : "" }
+    }
   }
 }

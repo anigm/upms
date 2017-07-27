@@ -29,16 +29,19 @@ class App extends React.Component {
           </IndexLink>
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
             <Menu.SubMenu key="user" title={<span><Icon type="user" /><span>用户管理</span></span>}>
+              <Menu.Item key="users">
+                <Link to="users"> <Icon type="user" /><span>用户列表</span></Link>
+              </Menu.Item>
               <Menu.Item key="register">
-                <Link to="Register"> <Icon type="user" /><span>用户注册</span></Link>
+                <Link to="Register"> <Icon type="user-add" /><span>用户注册</span></Link>
               </Menu.Item>
             </Menu.SubMenu>
             <Menu.Item key="2">
-              <Icon type="video-camera" />
+              <Icon type="team" />
               <span>角色管理</span>
             </Menu.Item>
             <Menu.Item key="3">
-              <Icon type="upload" />
+              <Icon type="solution" />
               <span>权限管理</span>
             </Menu.Item>
           </Menu>

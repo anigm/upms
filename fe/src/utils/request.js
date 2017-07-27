@@ -28,3 +28,15 @@ export default function request(url, options) {
     .then(data => ({ data }))
     .catch(err => ({ err }));
 }
+
+export function form(url, data) {
+  return fetch(url,
+    {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      method: 'post',
+      body: data,
+    })
+  .then((res) => { return res.json(); });
+}
